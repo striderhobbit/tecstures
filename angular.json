@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "music-monk": {
+    "tecstures": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "music-monk:build:production"
+              "buildTarget": "tecstures:build:production"
             },
             "development": {
-              "buildTarget": "music-monk:build:development"
+              "buildTarget": "tecstures:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "music-monk:build"
+            "buildTarget": "tecstures:build"
           }
         },
         "test": {
