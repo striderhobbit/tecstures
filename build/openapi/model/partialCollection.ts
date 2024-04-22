@@ -9,11 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { User } from './user';
+import { Event } from './event';
 
 
-export type UserRole = 'admin';
-
-export const UserRole = {
-    Admin: 'admin' as UserRole
-};
+/**
+ * Make all properties in T optional
+ */
+export interface PartialCollection { 
+    events?: Event;
+    users?: User;
+}
 

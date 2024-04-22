@@ -8,7 +8,12 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
+model/collectionPath.ts
+model/collectionQueryResult.ts
+model/event.ts
 model/models.ts
+model/partialCollection.ts
+model/user.ts
 model/userCandidate.ts
 model/userCredentials.ts
 model/userRole.ts

@@ -1,4 +1,11 @@
-<h1>Music Monk</h1>
-<h2>Music is a Religion</h2>
-<h3>{{ userService.userSession$ | async | json }}</h3>
-<router-outlet />
+<app-collection
+  collectionPath="events"
+  [columns]="[
+    { id: 'name', label: 'Name' },
+    { id: 'description', label: 'Description' }
+  ]"
+></app-collection>
+<app-collection
+  collectionPath="users"
+  [columns]="[{ id: 'role', label: 'Role' }]"
+></app-collection>

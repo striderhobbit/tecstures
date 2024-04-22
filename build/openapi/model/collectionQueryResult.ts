@@ -9,11 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { User } from './user';
+import { Event } from './event';
 
 
-export type UserRole = 'admin';
-
-export const UserRole = {
-    Admin: 'admin' as UserRole
-};
+export interface CollectionQueryResult { 
+    events?: { [key: string]: Event; };
+    users?: { [key: string]: User; };
+}
 

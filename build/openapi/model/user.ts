@@ -9,11 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserRole } from './userRole';
 
 
-export type UserRole = 'admin';
+export interface User { 
+    name: string;
+    role: UserRole;
+    passwordHash: string;
+}
+export namespace User {
+}
 
-export const UserRole = {
-    Admin: 'admin' as UserRole
-};
 

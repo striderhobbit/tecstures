@@ -11,9 +11,9 @@
  */
 
 
-export type UserRole = 'admin';
-
-export const UserRole = {
-    Admin: 'admin' as UserRole
-};
+export interface Event { 
+    name: string;
+    description: string;
+    date: string;
+}
 

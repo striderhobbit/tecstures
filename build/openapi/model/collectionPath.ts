@@ -11,9 +11,10 @@
  */
 
 
-export type UserRole = 'admin';
+export type CollectionPath = 'events' | 'users';
 
-export const UserRole = {
-    Admin: 'admin' as UserRole
+export const CollectionPath = {
+    Events: 'events' as CollectionPath,
+    Users: 'users' as CollectionPath
 };
 
