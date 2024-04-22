@@ -1,4 +1,5 @@
 .gitignore
+.openapi-generator-ignore
 README.md
 api.module.ts
 api/api.ts
@@ -7,7 +8,6 @@ configuration.ts
 encoder.ts
 git_push.sh
 index.ts
-model/dataObjectReference.ts
 model/models.ts
 model/userCandidate.ts
 model/userCredentials.ts
