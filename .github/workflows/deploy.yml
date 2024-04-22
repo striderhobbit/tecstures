@@ -26,4 +26,3 @@ jobs:
         with:
           branch: github-pages
           folder: dist/browser
-          token: ${{ secrets.GITHUB_TOKEN }}
