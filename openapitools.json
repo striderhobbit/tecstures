@@ -1,0 +1,18 @@
+{
+  "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
+  "spaces": 2,
+  "generator-cli": {
+    "version": "7.4.0",
+    "generators": {
+      "ng": {
+        "inputSpec": "https://raw.githubusercontent.com/striderhobbit/contecst/main/build/swagger.json",
+        "generatorName": "typescript-angular",
+        "output": "./build/openapi",
+        "skipValidateSpec": true,
+        "additionalProperties": {
+          "basePath": "https://us-central1-contecst.cloudfunctions.net/api"
+        }
+      }
+    }
+  }
+}
