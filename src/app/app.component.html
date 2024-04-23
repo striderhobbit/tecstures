@@ -1,11 +1,15 @@
-<document-table
-  collection="events"
-  [columns]="[
-    { key: 'name', label: 'Name' },
-    { key: 'description', label: 'Description' }
-  ]"
-></document-table>
-<document-table
-  collection="users"
-  [columns]="[{ key: 'role', label: 'Role' }]"
-></document-table>
+<nav mat-tab-nav-bar [tabPanel]="tabPanel">
+  <a
+    *ngFor="let route of routes"
+    #ref="routerLinkActive"
+    [active]="ref.isActive"
+    [routerLink]="route.path"
+    mat-tab-link
+    routerLinkActive
+  >
+    {{ route.path }}
+  </a>
+</nav>
+<mat-tab-nav-panel #tabPanel>
+  <router-outlet></router-outlet>
+</mat-tab-nav-panel>

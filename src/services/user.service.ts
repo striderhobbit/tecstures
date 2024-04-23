@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, lastValueFrom, tap } from 'rxjs';
-import {
-  DefaultService,
-  UserCredentials,
-  UserSession,
-} from '../../build/openapi';
+import { DefaultService, UserCredentials, UserSession } from '../core/openapi';
 
 @Injectable({
   providedIn: 'root',
