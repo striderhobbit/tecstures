@@ -2,12 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Document } from 'contecst/src/models/document';
-import { Event } from 'contecst/src/models/event';
-import { User } from 'contecst/src/models/user';
+import { Document, Event, User } from 'contecst';
 import { lastValueFrom, tap } from 'rxjs';
-import { DefaultService } from '../../../build/openapi';
 import { DialogService } from '../../services/dialog.service';
+import { DefaultService } from '../../core/openapi';
 
 interface DocumentTableColumn<D> {
   key: keyof D & string;

@@ -5,9 +5,9 @@
     "version": "7.4.0",
     "generators": {
       "ng": {
-        "inputSpec": "https://raw.githubusercontent.com/striderhobbit/contecst/main/build/swagger.json",
+        "inputSpec": "node_modules/contecst/build/tsoa/swagger.json",
         "generatorName": "typescript-angular",
-        "output": "./build/openapi",
+        "output": "./src/core/openapi",
         "skipValidateSpec": true,
         "additionalProperties": {
           "basePath": "https://us-central1-contecst.cloudfunctions.net/api"

@@ -1,5 +1,5 @@
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core';
-import { Configuration, ConfigurationParameters } from '../build/openapi';
+import { Configuration, ConfigurationParameters } from '../src/core/openapi';
 
 export function withApiConfiguration(
   configurationParameters: ConfigurationParameters = {}

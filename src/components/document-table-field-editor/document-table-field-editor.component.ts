@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { cloneDeep } from 'lodash';
 import { lastValueFrom, map } from 'rxjs';
-import { DefaultService } from '../../../build/openapi';
+import { DefaultService } from '../../core/openapi';
 import { DocumentTableField } from '../document-table/document-table.component';
 
 @Component({
