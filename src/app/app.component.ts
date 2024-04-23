@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { DocumentTableComponent } from '../components/document-table/document-table.component';
-import { routes } from './app.routes';
+import { tabRoutes } from './app.routes';
 
 @Component({
   selector: 'root',
@@ -19,5 +19,5 @@ import { routes } from './app.routes';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  protected readonly routes = routes;
+  protected readonly routes = tabRoutes;
 }
