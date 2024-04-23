@@ -3,9 +3,9 @@ import { Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { Document, Event, User } from 'contecst';
-import { lastValueFrom, tap } from 'rxjs';
-import { DialogService } from '../../services/dialog.service';
+import { lastValueFrom, map } from 'rxjs';
 import { DefaultService } from '../../core/openapi';
+import { DialogService } from '../../services/dialog.service';
 
 interface DocumentTableColumn<D> {
   key: keyof D & string;
@@ -56,15 +56,12 @@ export class DocumentTableComponent<
   }
 
   private async updateDataSource(): Promise<void> {
-    await lastValueFrom(
-      this.defaultService
-        .readDocuments(this.collection)
-        .pipe(
-          tap(
-            (docs) =>
-              (this.dataSource.data = docs.map((doc) => doc as Document<D>))
-          )
-        )
+    return lastValueFrom(
+      this.defaultService.readDocuments(this.collection).pipe(
+        map((docs) => {
+          this.dataSource.data = docs.map((doc) => doc as Document<D>);
+        })
+      )
     );
   }
 

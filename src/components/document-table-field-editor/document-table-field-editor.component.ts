@@ -41,13 +41,13 @@ export class DocumentTableFieldEditorComponent<D> {
   }
 
   protected async submit(): Promise<void> {
+    const {
+      document: { collection, id, data },
+    } = this.field;
+
     return lastValueFrom(
       this.defaultService
-        .updateDocument(
-          this.field.document.collection,
-          this.field.document.id,
-          this.field.document.data ?? {}
-        )
+        .updateDocument(collection, id, data ?? {})
         .pipe(map(() => this.dialogRef.close()))
     );
   }
