@@ -21,7 +21,8 @@
     "@angular/platform-browser": "^17.3.4",
     "@angular/platform-browser-dynamic": "^17.3.4",
     "@angular/router": "^17.3.4",
-    "contecst": "^1.0.2",
+    "contecst": "^1.0.5",
+    "lodash": "^4.17.21",
     "rxjs": "~7.8.1",
     "tslib": "^2.6.2",
     "zone.js": "~0.14.4"
@@ -32,6 +33,7 @@
     "@angular/compiler-cli": "^17.3.4",
     "@openapitools/openapi-generator-cli": "^2.13.3",
     "@types/jasmine": "~5.1.4",
+    "@types/lodash": "^4.17.0",
     "jasmine-core": "~5.1.2",
     "karma": "~6.4.3",
     "karma-chrome-launcher": "~3.2.0",

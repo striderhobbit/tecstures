@@ -1,11 +1,11 @@
-<app-collection
-  collectionPath="events"
+<document-table
+  collection="events"
   [columns]="[
-    { id: 'name', label: 'Name' },
-    { id: 'description', label: 'Description' }
+    { key: 'name', label: 'Name' },
+    { key: 'description', label: 'Description' }
   ]"
-></app-collection>
-<app-collection
-  collectionPath="users"
-  [columns]="[{ id: 'role', label: 'Role' }]"
-></app-collection>
+></document-table>
+<document-table
+  collection="users"
+  [columns]="[{ key: 'role', label: 'Role' }]"
+></document-table>

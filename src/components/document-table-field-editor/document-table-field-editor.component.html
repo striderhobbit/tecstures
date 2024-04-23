@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Edit</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      [(ngModel)]="field.document.data![field.column.key]"
+    />
+    <mat-label>{{ field.column.label }}</mat-label>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="submit()">Submit</button>
+  <button mat-button [mat-dialog-close]>Cancel</button>
+</mat-dialog-actions>
