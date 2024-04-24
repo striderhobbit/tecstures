@@ -1,0 +1,110 @@
+$cubeSize: 50vmin;
+$cubieSize: calc($cubeSize / 3);
+
+$faces: (
+        key: "B",
+        color: #0246ad,
+        transform: rotateY(180deg) translateZ(calc($cubieSize / 2))
+    ),
+    (
+        key: "D",
+        color: #ffd500,
+        transform: rotateX(-90deg) translateZ(calc($cubieSize / 2))
+    ),
+    (
+        key: "F",
+        color: #009b48,
+        transform: translateZ(calc($cubieSize / 2))
+    ),
+    (
+        key: "L",
+        color: #ff5800,
+        transform: rotateY(-90deg) translateZ(calc($cubieSize / 2))
+    ),
+    (
+        key: "R",
+        color: #b71234,
+        transform: rotateY(90deg) translateZ(calc($cubieSize / 2))
+    ),
+    (
+        key: "U",
+        color: #ffffff,
+        transform: rotateX(90deg) translateZ(calc($cubieSize / 2))
+    );
+
+@each $axis in X, Y, Z {
+    @keyframes rotate#{$axis} {
+        0% {
+            transform: rotate(0);
+        }
+        100% {
+            transform: rotate#{$axis }(calc(var(--twist-order, 0) * 90deg));
+        }
+    }
+}
+
+:host {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+}
+
+.cube {
+    height: $cubeSize;
+    margin: calc($cubeSize * (sqrt(3) - 1) / 2);
+    transform-style: preserve-3d;
+    width: $cubeSize;
+}
+
+.cubicle {
+    height: 100%;
+    pointer-events: none;
+    position: absolute;
+    transform-style: preserve-3d;
+    width: 100%;
+
+    :host([twist-axis]) & {
+        animation-duration: 1s;
+        animation-timing-function: ease-in-out;
+    }
+
+    :host([twist-axis="x"]) & {
+        animation-name: rotateX;
+    }
+
+    :host([twist-axis="y"]) & {
+        animation-name: rotateY;
+    }
+
+    :host([twist-axis="z"]) & {
+        animation-name: rotateZ;
+    }
+}
+
+.cubie {
+    height: $cubieSize;
+    transform-style: preserve-3d;
+    transform: translate3d(calc(var(--tx) * $cubieSize), calc(var(--ty) * $cubieSize), calc((var(--tz)) * $cubieSize))
+        translateZ(-$cubieSize);
+    width: $cubieSize;
+
+    &__face {
+        backface-visibility: hidden;
+        background-color: black;
+        border-radius: calc($cubieSize / 10);
+        position: absolute;
+
+        @each $face in $faces {
+            &--#{map-get($face, key)} {
+                transform: map-get($face, transform);
+            }
+        }
+
+        @each $face in $faces {
+            &[sticker="#{map-get($face, key)}"] > rect {
+                fill: map-get($face, color);
+            }
+        }
+    }
+}

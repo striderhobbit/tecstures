@@ -1,0 +1,27 @@
+<div class="cube" [style.transform]="rotation.rotate3d">
+  <div
+    *ngFor="let cubicle of cube.cubicles"
+    class="cubicle"
+    [style.--twist-order]="move?.twistOrder(cubicle)"
+    (animationend)="animations.next(move!.id)"
+  >
+    <div class="cubie" [style]="cubicle.transform">
+      <svg
+        *ngFor="let j of times(6)"
+        class="cubie__face cubie__face--{{ cube.slices[j] }}"
+        [attr.sticker]="cube.permutation.pull(cubicle.index + j)"
+        viewBox="0 0 1 1"
+      >
+        <rect
+          *ngIf="0.1 as margin"
+          [attr.height]="1 - 2 * margin"
+          [attr.rx]="0.1"
+          [attr.ry]="0.1"
+          [attr.width]="1 - 2 * margin"
+          [attr.x]="margin"
+          [attr.y]="margin"
+        ></rect>
+      </svg>
+    </div>
+  </div>
+</div>
