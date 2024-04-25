@@ -12,9 +12,9 @@ import {
   scheduled,
   take,
 } from 'rxjs';
-import { Move } from '../../classes/move';
-import { Cube } from '../../classes/rubics/movecs/cube';
 import { RotatableTouchComponent } from '../../classes/rotatable-touch.component';
+import { Cube } from '../../classes/rubics/cube';
+import { Move } from '../../classes/rubics/move';
 
 @Component({
   selector: 'rubics',
