@@ -1,3 +1,8 @@
+@use "@angular/material" as mat;
+@use "themes/main.scss" as main-theme;
+
+@include mat.all-component-themes(main-theme.$dark);
+
 html,
 body {
     height: 100%;
@@ -6,5 +11,4 @@ body {
 body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     margin: 0;
-    overflow: hidden;
 }
