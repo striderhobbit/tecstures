@@ -1,5 +1,5 @@
 import { uniqueId } from 'lodash';
-import { BaseMove, baseMoves } from './baseMoves';
+import { BaseMove, baseMoves } from './base-moves';
 import { Cubicle } from './cubicle';
 import { SimplePermutation } from './permutation';
 import { Twist } from './twist';

@@ -1,11 +1,11 @@
 import { Component, HostListener } from '@angular/core';
 import { Vector3 } from 'three';
-import { Rotation3 } from './rotation';
+import { Rotation3 } from './rubics/rotation';
 
 @Component({
   template: '',
 })
-export class MouseRotatableComponent {
+export class RotatableMouseComponent {
   @HostListener('mousedown')
   onMouseDown(): void {
     this.free = true;

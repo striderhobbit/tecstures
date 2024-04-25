@@ -1,10 +1,10 @@
 import { Component, HostListener } from '@angular/core';
-import { MouseRotatableComponent } from './mouseRotatable';
+import { RotatableMouseComponent } from './rotatable-mouse.component';
 
 @Component({
   template: '',
 })
-export class TouchRotatableComponent extends MouseRotatableComponent {
+export class RotatableTouchComponent extends RotatableMouseComponent {
   @HostListener('touchstart')
   onTouchStart(): void {
     this.onMouseDown();

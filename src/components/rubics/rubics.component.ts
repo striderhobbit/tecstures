@@ -12,9 +12,9 @@ import {
   scheduled,
   take,
 } from 'rxjs';
-import { Cube } from '../../classes/cube';
 import { Move } from '../../classes/move';
-import { TouchRotatableComponent } from '../../classes/touchRotatable';
+import { Cube } from '../../classes/rubics/movecs/cube';
+import { RotatableTouchComponent } from '../../classes/rotatable-touch.component';
 
 @Component({
   selector: 'rubics',
@@ -23,7 +23,7 @@ import { TouchRotatableComponent } from '../../classes/touchRotatable';
   templateUrl: './rubics.component.html',
   styleUrls: ['./rubics.component.scss'],
 })
-export class RubicsComponent extends TouchRotatableComponent {
+export class RubicsComponent extends RotatableTouchComponent {
   @HostBinding('attr.twist-axis')
   get twistAxis(): string | undefined {
     return this.move?.twist.axis;
