@@ -44,21 +44,22 @@ export class RubicsComponent extends RotatableTouchComponent {
 
     this.moves
       .pipe(
-        concatMap((move) => {
-          delete this.move;
-
-          return scheduled(
+        concatMap((move) =>
+          scheduled(
             concat(
               defer(async () => (this.move = move)),
               this.animations.pipe(
                 filter((id) => move.id === id),
                 take(27),
-                finalize(() => this.cube.permutation.apply(move.permutation))
+                finalize(() => {
+                  this.cube.permutation.apply(move.permutation);
+                  delete this.move;
+                })
               )
             ),
             animationFrameScheduler
-          );
-        })
+          )
+        )
       )
       .subscribe();
 

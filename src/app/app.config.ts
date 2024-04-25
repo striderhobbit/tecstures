@@ -2,8 +2,13 @@ import { provideHttpClient } from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideRouter, withHashLocation } from '@angular/router';
+import {
+  RouteReuseStrategy,
+  provideRouter,
+  withHashLocation,
+} from '@angular/router';
 import { provideApi, withApiConfiguration } from '../api.provider';
+import { CustomRouteReuseStrategy } from '../classes/custom-route-reuse-strategy';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -13,6 +18,10 @@ export const appConfig: ApplicationConfig = {
       useValue: { appearance: 'fill' },
     },
     provideRouter(routes, withHashLocation()),
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomRouteReuseStrategy,
+    },
     provideAnimationsAsync(),
     provideHttpClient(),
     provideApi(
