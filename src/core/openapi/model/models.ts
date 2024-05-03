@@ -1,3 +1,4 @@
+export * from './collectionPath';
 export * from './document';
 export * from './userCandidate';
 export * from './userCredentials';

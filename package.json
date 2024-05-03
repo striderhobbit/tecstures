@@ -21,7 +21,7 @@
     "@angular/platform-browser": "^17.3.4",
     "@angular/platform-browser-dynamic": "^17.3.4",
     "@angular/router": "^17.3.4",
-    "contecst": "^1.0.8",
+    "contecst": "^1.0.13",
     "lodash": "^4.17.21",
     "rxjs": "~7.8.1",
     "three": "^0.163.0",

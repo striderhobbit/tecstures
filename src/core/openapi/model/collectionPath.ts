@@ -9,14 +9,12 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserRole } from './userRole';
 
 
-export interface UserCandidate { 
-    name: string;
-    role: UserRole;
-}
-export namespace UserCandidate {
-}
+export type CollectionPath = 'events' | 'users';
 
+export const CollectionPath = {
+    Events: 'events' as CollectionPath,
+    Users: 'users' as CollectionPath
+};
 

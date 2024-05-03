@@ -15,3 +15,31 @@
 <mat-tab-nav-panel #tabPanel>
   <router-outlet></router-outlet>
 </mat-tab-nav-panel>
+
+<footer>
+  @if(userSession != null) {
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-title>
+      <mat-panel-description>{{ userSession.name }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <button mat-fab extended (click)="logoutUser()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
+  </mat-expansion-panel>
+  } @else {
+  <button mat-fab [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  }
+</footer>
+
+<mat-menu #menu="matMenu" yPosition="above">
+  <button mat-menu-item (click)="loginUser()">
+    <mat-icon>login</mat-icon>
+    <span>Login</span>
+  </button>
+</mat-menu>

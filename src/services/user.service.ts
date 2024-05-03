@@ -13,15 +13,10 @@ export class UserService {
   }
 
   constructor(private readonly defaultService: DefaultService) {
-    this.authenticateUser().catch(() =>
-      this.loginUser({
-        id: 'eiucSzQPIwMuKyQiEYLU',
-        password: 'Cg@Cv055$2',
-      })
-    );
+    this.authenticateUser();
   }
 
-  private authenticateUser(): Promise<UserSession> {
+  public async authenticateUser(): Promise<UserSession> {
     return lastValueFrom(
       this.defaultService
         .authenticateUser()

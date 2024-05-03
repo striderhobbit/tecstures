@@ -4,11 +4,13 @@
 
 $dark: mat.define-dark-theme(
     (
-        color: (
-            primary: mat.define-palette(mat.$teal-palette),
-            accent: mat.define-palette(mat.$purple-palette),
-            warn: mat.define-palette(mat.$pink-palette)
-        ),
+        // TODO pick matching colors (using tool)
+        color:
+            (
+                primary: mat.define-palette(mat.$teal-palette),
+                accent: mat.define-palette(mat.$purple-palette),
+                warn: mat.define-palette(mat.$pink-palette)
+            ),
         typography: mat.define-typography-config(),
         density: 100
     )
@@ -16,10 +18,13 @@ $dark: mat.define-dark-theme(
 
 $light: mat.define-light-theme(
     (
-        color: (
-            primary: mat.define-palette(mat.$teal-palette),
-            accent: mat.define-palette(mat.$purple-palette),
-            warn: mat.define-palette(mat.$pink-palette)
-        )
+        // TODO psycho colors
+        // TODO add color theme picker, make light theme default (or system theme)
+        color:
+            (
+                primary: mat.define-palette(mat.$teal-palette),
+                accent: mat.define-palette(mat.$purple-palette),
+                warn: mat.define-palette(mat.$pink-palette)
+            )
     )
 );

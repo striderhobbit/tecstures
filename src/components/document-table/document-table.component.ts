@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Document, Event, User } from 'contecst';
+import { Collection, CollectionPath, Document } from 'contecst';
 import { lastValueFrom, map } from 'rxjs';
 import { DefaultService } from '../../core/openapi';
 import { DialogService } from '../../services/dialog.service';
@@ -25,11 +25,8 @@ export interface DocumentTableField<D> {
   styleUrl: './document-table.component.scss',
 })
 export class DocumentTableComponent<
-  K extends 'events' | 'users',
-  D extends {
-    events: Event;
-    users: User;
-  }[K]
+  K extends CollectionPath,
+  D extends Collection[K]
 > {
   @Input({ required: true }) collection!: K;
   @Input({ required: true }) columns!: DocumentTableColumn<D>[];
