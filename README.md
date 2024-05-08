@@ -1,3 +1,5 @@
+Please be patient – this project is still under development. Many ideas but not much time...
+
 https://tecstures.com/
 
 # tecstures
