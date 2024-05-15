@@ -1,17 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding } from '@angular/core';
 import { times } from 'lodash';
-import {
-  Subject,
-  animationFrameScheduler,
-  concat,
-  concatMap,
-  defer,
-  filter,
-  finalize,
-  scheduled,
-  take,
-} from 'rxjs';
+import { AnimationScheduler } from '../../classes/animation-scheduler';
 import { RotatableTouchComponent } from '../../classes/rotatable-touch.component';
 import { Cube } from '../../classes/rubics/cube';
 import { Move } from '../../classes/rubics/move';
@@ -26,45 +16,24 @@ import { Move } from '../../classes/rubics/move';
 export class RubicsComponent extends RotatableTouchComponent {
   @HostBinding('attr.twist-axis')
   get twistAxis(): string | undefined {
-    return this.move?.twist.axis;
+    return this.animationScheduler.currentMove?.twist.axis;
   }
 
-  protected readonly animations: Subject<string> = new Subject();
+  protected readonly animationScheduler = new AnimationScheduler<Move>((move) =>
+    this.cube.permutation.apply(move.permutation)
+  );
 
   protected cube = new Cube();
-
-  protected move?: Move;
-
-  private readonly moves: Subject<Move> = new Subject();
 
   protected readonly times = times;
 
   constructor() {
     super();
 
-    this.moves
-      .pipe(
-        concatMap((move) =>
-          scheduled(
-            concat(
-              defer(async () => (this.move = move)),
-              this.animations.pipe(
-                filter((id) => move.id === id),
-                take(27),
-                finalize(() => {
-                  this.cube.permutation.apply(move.permutation);
-                  delete this.move;
-                })
-              )
-            ),
-            animationFrameScheduler
-          )
-        )
-      )
-      .subscribe();
+    this.animationScheduler.subscribe();
 
-    this.moves.next(new Move({ key: 'R', exp: -2 }));
-    this.moves.next(new Move({ key: 'l', exp: 1 }));
-    this.moves.next(new Move({ key: 'u', exp: 1 }));
+    this.animationScheduler.next(new Move({ key: 'R', exp: -2 }));
+    this.animationScheduler.next(new Move({ key: 'l', exp: 1 }));
+    this.animationScheduler.next(new Move({ key: 'u', exp: 1 }));
   }
 }

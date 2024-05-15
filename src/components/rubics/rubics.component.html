@@ -2,8 +2,8 @@
   <div
     *ngFor="let cubicle of cube.cubicles"
     class="cubicle"
-    [style.--twist-order]="move?.twistOrder(cubicle)"
-    (animationend)="animations.next(move!.id)"
+    [style.--twist-order]="animationScheduler.currentMove?.twistOrder(cubicle)"
+    (animationend)="animationScheduler.complete()"
   >
     <div class="cubie" [style]="cubicle.transform">
       <svg
