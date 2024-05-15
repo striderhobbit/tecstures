@@ -1,0 +1,27 @@
+:host {
+    align-items: center;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    transition: transform 2s;
+
+    &::before {
+        content: attr(index);
+    }
+
+    &[transform-direction="ltr"] {
+        transform: translateX(100%);
+    }
+
+    &[transform-direction="rtl"] {
+        transform: translateX(-100%);
+    }
+
+    &[transform-direction="ttb"] {
+        transform: translateY(100%);
+    }
+
+    &[transform-direction="btt"] {
+        transform: translateY(-100%);
+    }
+}

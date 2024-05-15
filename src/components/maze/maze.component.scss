@@ -1,0 +1,4 @@
+:host {
+    display: grid;
+    grid-template-columns: repeat(var(--size), 1fr);
+}

@@ -15,11 +15,14 @@ interface Move {
   id: string;
 }
 
-interface MoveFactory<M extends Move> {
-  (move: M): void;
+interface MoveCallback<M extends Move> {
+  (this: AnimationScheduler<M>, move: M): void;
 }
 
 export class AnimationScheduler<M extends Move> {
+  private readonly callback?: MoveCallback<M>;
+  private readonly count: number;
+
   #currentMove?: M | null;
 
   public get currentMove(): M | undefined | null {
@@ -35,9 +38,9 @@ export class AnimationScheduler<M extends Move> {
           defer(async () => (this.#currentMove = move)),
           this.animations$.pipe(
             filter((id) => move.id === id),
-            take(27),
+            take(this.count),
             finalize(() => {
-              this.factory(move);
+              this.callback?.call(this, move);
               this.#currentMove = null;
             })
           )
@@ -47,7 +50,16 @@ export class AnimationScheduler<M extends Move> {
     )
   );
 
-  constructor(private readonly factory: MoveFactory<M>) {}
+  constructor({
+    callback,
+    count,
+  }: {
+    callback?: MoveCallback<M>;
+    count: number;
+  }) {
+    this.callback = callback;
+    this.count = count;
+  }
 
   public complete(): void {
     this.animations$.next(this.#currentMove!.id);

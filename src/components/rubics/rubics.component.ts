@@ -19,9 +19,10 @@ export class RubicsComponent extends RotatableTouchComponent {
     return this.animationScheduler.currentMove?.twist.axis;
   }
 
-  protected readonly animationScheduler = new AnimationScheduler<Move>((move) =>
-    this.cube.permutation.apply(move.permutation)
-  );
+  protected readonly animationScheduler = new AnimationScheduler<Move>({
+    callback: (move) => this.cube.permutation.apply(move.permutation),
+    count: 27,
+  });
 
   protected cube = new Cube();
 

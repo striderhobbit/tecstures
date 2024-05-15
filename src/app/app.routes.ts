@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { EventsComponent } from '../components/events/events.component';
+import { MazeComponent } from '../components/maze/maze.component';
 import { RubicsComponent } from '../components/rubics/rubics.component';
 import { UsersComponent } from '../components/users/users.component';
 
@@ -15,6 +16,10 @@ export const tabRoutes: Routes = [
   {
     path: 'rubics',
     component: RubicsComponent,
+  },
+  {
+    path: 'maze',
+    component: MazeComponent,
   },
 ];
 

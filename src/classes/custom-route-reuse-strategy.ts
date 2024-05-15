@@ -13,7 +13,8 @@ export class CustomRouteReuseStrategy implements RouteReuseStrategy {
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
     return tabRoutes.some(
-      (tabRoute) => tabRoute.path === route.routeConfig?.path
+      (tabRoute) =>
+        tabRoute.path !== 'maze' && tabRoute.path === route.routeConfig?.path
     );
   }
 
