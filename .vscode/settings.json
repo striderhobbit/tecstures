@@ -1,3 +1,7 @@
 {
-  "typescript.tsdk": "node_modules\\typescript\\lib"
+  "typescript.tsdk": "node_modules\\typescript\\lib",
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#570859",
+    "titleBar.inactiveBackground": "#2e042f"
+  }
 }
