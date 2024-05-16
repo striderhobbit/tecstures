@@ -31,8 +31,6 @@ export class RubicsComponent extends RotatableTouchComponent {
   constructor() {
     super();
 
-    this.animationScheduler.subscribe();
-
     this.animationScheduler.next(new Move({ key: 'R', exp: -2 }));
     this.animationScheduler.next(new Move({ key: 'l', exp: 1 }));
     this.animationScheduler.next(new Move({ key: 'u', exp: 1 }));

@@ -41,8 +41,6 @@ export class MazeComponent implements OnInit {
   protected readonly cells: Cell[][] = [];
 
   constructor() {
-    this.animationScheduler.subscribe();
-
     this.animationScheduler.next(new Move({ direction: 'btt', index: 1 }));
   }
 

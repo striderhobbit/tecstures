@@ -1,6 +1,5 @@
 import {
   Subject,
-  Subscription,
   animationFrameScheduler,
   concat,
   concatMap,
@@ -59,6 +58,8 @@ export class AnimationScheduler<M extends Move> {
   }) {
     this.callback = callback;
     this.count = count;
+
+    this.scheduledMoves$.subscribe();
   }
 
   public complete(): void {
@@ -67,9 +68,5 @@ export class AnimationScheduler<M extends Move> {
 
   public next(move: M): void {
     this.moves$.next(move);
-  }
-
-  public subscribe(): Subscription {
-    return this.scheduledMoves$.subscribe();
   }
 }
