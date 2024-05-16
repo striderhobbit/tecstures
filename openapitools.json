@@ -2,7 +2,7 @@
   "$schema": "./node_modules/@openapitools/openapi-generator-cli/config.schema.json",
   "spaces": 2,
   "generator-cli": {
-    "version": "7.4.0",
+    "version": "7.5.0",
     "generators": {
       "ng": {
         "inputSpec": "node_modules/contecst/build/tsoa/swagger.json",
@@ -11,9 +11,7 @@
         "skipValidateSpec": true,
         "additionalProperties": {
           "basePath": "https://us-central1-contecst.cloudfunctions.net/api"
-        },
-        "modelNamePrefix": "FOO", // FIXME this is only a reminder
-        "skipOverwrite": true // FIXME this is only a reminder
+        }
       }
     }
   }
