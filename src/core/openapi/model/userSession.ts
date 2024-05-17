@@ -9,13 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { UserRole } from './userRole';
 
 
-export type CollectionPath = 'events' | 'users' | 'youtubeVideos';
+export interface UserSession { 
+    name: string;
+    role: UserRole;
+    id: string;
+}
+export namespace UserSession {
+}
 
-export const CollectionPath = {
-    Events: 'events' as CollectionPath,
-    Users: 'users' as CollectionPath,
-    YoutubeVideos: 'youtubeVideos' as CollectionPath
-};
 

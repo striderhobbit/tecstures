@@ -15,5 +15,6 @@ model/models.ts
 model/userCandidate.ts
 model/userCredentials.ts
 model/userRole.ts
+model/userSession.ts
 param.ts
 variables.ts
