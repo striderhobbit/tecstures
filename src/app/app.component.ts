@@ -47,8 +47,4 @@ export class AppComponent {
       })
       .then(() => this.userService.authenticateUser());
   }
-
-  protected async logoutUser(): Promise<void> {
-    return this.userService.logoutUser();
-  }
 }

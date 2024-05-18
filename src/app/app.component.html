@@ -25,10 +25,6 @@
       </mat-panel-title>
       <mat-panel-description>{{ userSession.name }}</mat-panel-description>
     </mat-expansion-panel-header>
-    <button mat-fab extended (click)="logoutUser()">
-      <mat-icon>logout</mat-icon>
-      <span>Logout</span>
-    </button>
   </mat-expansion-panel>
   } @else {
   <button mat-fab [matMenuTriggerFor]="menu">

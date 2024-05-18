@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, lastValueFrom, tap } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, map, tap } from 'rxjs';
 import { DefaultService, UserCredentials, UserSession } from '../core/openapi';
 
 @Injectable({
@@ -24,19 +24,11 @@ export class UserService {
     );
   }
 
-  public async loginUser(credentials: UserCredentials): Promise<UserSession> {
+  public async loginUser(credentials: UserCredentials): Promise<void> {
     return lastValueFrom(
       this.defaultService
         .loginUser(credentials)
-        .pipe(tap((session) => this.#userSession$.next(session)))
-    );
-  }
-
-  public async logoutUser(): Promise<void> {
-    return lastValueFrom(
-      this.defaultService
-        .logoutUser()
-        .pipe(tap(() => this.#userSession$.next(null)))
+        .pipe(map(({ token }) => localStorage.setItem('access_token', token)))
     );
   }
 }
