@@ -1,4 +1,8 @@
-import { provideHttpClient } from '@angular/common/http';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { ApplicationConfig } from '@angular/core';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -8,6 +12,7 @@ import {
   withHashLocation,
 } from '@angular/router';
 import { provideApi, withApiConfiguration } from '../api.provider';
+import { AuthInterceptor } from '../classes/auth-interceptor';
 import { CustomRouteReuseStrategy } from '../classes/custom-route-reuse-strategy';
 import { routes } from './app.routes';
 
@@ -23,7 +28,12 @@ export const appConfig: ApplicationConfig = {
       useClass: CustomRouteReuseStrategy,
     },
     provideAnimationsAsync(),
-    provideHttpClient(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+    provideHttpClient(withInterceptorsFromDi()),
     provideApi(
       withApiConfiguration({
         withCredentials: true,

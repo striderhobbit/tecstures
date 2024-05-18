@@ -45,6 +45,6 @@ export class AppComponent {
         id: 'eiucSzQPIwMuKyQiEYLU',
         password: 'Cg@Cv055$2',
       })
-      .then(() => this.userService.authenticateUser());
+      .then(() => this.userService.pullUser());
   }
 }
