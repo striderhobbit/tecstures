@@ -17,7 +17,7 @@
 </mat-tab-nav-panel>
 
 <footer>
-  @if(userSession != null) {
+  @if(userSession != null && userSession.role !== 'guest') {
   <mat-expansion-panel>
     <mat-expansion-panel-header>
       <mat-panel-title>
@@ -25,6 +25,10 @@
       </mat-panel-title>
       <mat-panel-description>{{ userSession.name }}</mat-panel-description>
     </mat-expansion-panel-header>
+    <button mat-fab extended (click)="logoutUser()">
+      <mat-icon>logout</mat-icon>
+      <span>Logout</span>
+    </button>
   </mat-expansion-panel>
   } @else {
   <button mat-fab [matMenuTriggerFor]="menu">

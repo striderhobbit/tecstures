@@ -45,6 +45,12 @@ export class AppComponent {
         id: 'eiucSzQPIwMuKyQiEYLU',
         password: 'Cg@Cv055$2',
       })
-      .then(() => this.userService.pullUser());
+      .then(() => this.userService.authenticateUser());
+  }
+
+  protected async logoutUser(): Promise<UserSession> {
+    return this.userService
+      .logoutUser()
+      .then(() => this.userService.authenticateUser());
   }
 }
