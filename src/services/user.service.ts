@@ -20,7 +20,7 @@ export class UserService {
     return lastValueFrom(
       this.defaultService
         .authenticateUser()
-        .pipe(tap((session) => this.#userSession$.next(session)))
+        .pipe(tap((userSession) => this.#userSession$.next(userSession)))
     );
   }
 
