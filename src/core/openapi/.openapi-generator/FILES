@@ -12,6 +12,7 @@ model/collectionPath.ts
 model/document.ts
 model/loginUser200Response.ts
 model/models.ts
+model/niaxTableQueryCollectionPath.ts
 model/userCandidate.ts
 model/userCredentials.ts
 model/userRole.ts

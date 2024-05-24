@@ -2,10 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Collection, CollectionPath, Document } from 'contecst';
+import { Collection, CollectionPath, Document, Niax } from 'contecst';
 import { lastValueFrom, map } from 'rxjs';
 import { DefaultService } from '../../core/openapi';
 import { DialogService } from '../../services/dialog.service';
+import { NiaxResourceTableComponent } from '../niax-resource-table/niax-resource-table.component';
 
 interface DocumentTableColumn<D> {
   key: keyof D & string;
@@ -20,18 +21,28 @@ export interface DocumentTableField<D> {
 @Component({
   selector: 'document-table',
   standalone: true,
-  imports: [CommonModule, MatProgressSpinnerModule, MatTableModule],
+  imports: [
+    CommonModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    NiaxResourceTableComponent,
+  ],
   templateUrl: './document-table.component.html',
   styleUrl: './document-table.component.scss',
 })
 export class DocumentTableComponent<
-  K extends CollectionPath,
-  D extends Collection[K]
+  C extends CollectionPath,
+  D extends Collection[C]
 > {
-  @Input({ required: true }) collection!: K;
+  @Input({ required: true }) collection!: C;
   @Input({ required: true }) columns!: DocumentTableColumn<D>[];
 
   protected readonly dataSource = new MatTableDataSource<Document<D>>();
+
+  protected readonly tableQuery: Niax.TableQuery<'events'> = {
+    cols: 'data.name:::,data.participants:::',
+    resourceName: 'events',
+  };
 
   protected get displayedColumns(): Array<keyof D> {
     const keys: Array<keyof D> = [];

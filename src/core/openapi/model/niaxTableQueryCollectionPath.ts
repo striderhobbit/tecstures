@@ -9,14 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { UserRole } from './userRole';
+import { CollectionPath } from './collectionPath';
 
 
-export interface UserCandidate { 
-    name: string;
-    role: UserRole;
+export interface NiaxTableQueryCollectionPath { 
+    limit?: number;
+    cols?: string;
+    resourceId?: string;
+    resourceName: CollectionPath;
+    rowsPageToken?: string;
 }
-export namespace UserCandidate {
+export namespace NiaxTableQueryCollectionPath {
 }
 
 

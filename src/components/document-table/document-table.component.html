@@ -1,4 +1,4 @@
-<table mat-table [dataSource]="dataSource">
+<!--table mat-table [dataSource]="dataSource">
   <ng-container *ngFor="let column of columns" [matColumnDef]="column.key">
     <th mat-header-cell *matHeaderCellDef>{{ column.label }}</th>
     <td
@@ -15,4 +15,5 @@
   <tr *matNoDataRow>
     <mat-spinner></mat-spinner>
   </tr>
-</table>
+</table-->
+<niax-resource-table [query]="tableQuery"></niax-resource-table>
