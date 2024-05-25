@@ -104,7 +104,7 @@ export class NiaxResourceTableComponent<
     );
   }
 
-  private readonly resourceTable$ = new Subject<Niax.Table<C, I>>();
+  protected readonly resourceTable$ = new Subject<Niax.Table<C, I>>();
 
   protected resourceTable?: Niax.Table<C, I>;
 
@@ -135,10 +135,8 @@ export class NiaxResourceTableComponent<
               resolve();
             }
           }).then(() => resourceTable)
-        )
-      )
-      .subscribe({
-        next: (resourceTable) => {
+        ),
+        map((resourceTable) => {
           (resourceTable.rowsPages$ = new Subject<void>())
             .pipe(
               map(() =>
@@ -170,6 +168,11 @@ export class NiaxResourceTableComponent<
 
           this.selection.clear();
 
+          return resourceTable;
+        })
+      )
+      .subscribe({
+        next: (resourceTable) => {
           (this.resourceTable = resourceTable).rowsPages$?.next();
         },
       });
