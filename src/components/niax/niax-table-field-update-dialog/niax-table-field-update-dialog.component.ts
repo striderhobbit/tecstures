@@ -12,23 +12,23 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { CollectionPath, Niax } from 'contecst';
 import { isEqual, set } from 'lodash';
-import { ChangeDetector } from '../../classes/change-detector';
+import { ChangeDetector } from '../../../classes/change-detector';
 
-export interface NiaxResourceItemPatchDialog<
+export interface NiaxTableFieldUpdateDialog<
   C extends CollectionPath,
   I extends Niax.Item<C>
 > {
   ref: MatDialogRef<
-    NiaxResourceItemPatchDialogComponent<C, I>,
+    NiaxTableFieldUpdateDialogComponent<C, I>,
     Niax.TableField<C, I>
   >;
   data: Niax.TableField<C, I>;
 }
 
 @Component({
-  selector: 'niax-resource-item-patch-dialog',
-  templateUrl: './niax-resource-item-patch-dialog.component.html',
-  styleUrl: './niax-resource-item-patch-dialog.component.scss',
+  selector: 'niax-table-field-update-dialog',
+  templateUrl: './niax-table-field-update-dialog.component.html',
+  styleUrl: './niax-table-field-update-dialog.component.scss',
   standalone: true,
   imports: [
     FormsModule,
@@ -42,29 +42,29 @@ export interface NiaxResourceItemPatchDialog<
     NgSwitchDefault,
   ],
 })
-export class NiaxResourceItemPatchDialogComponent<
+export class NiaxTableFieldUpdateDialogComponent<
   C extends CollectionPath,
   I extends Niax.Item<C>
 > extends ChangeDetector<Niax.TableField<C, I>> {
-  protected readonly field: Niax.TableField<C, I>;
-
   protected readonly set = set;
+
+  protected readonly tableField: Niax.TableField<C, I>;
 
   constructor(
     @Inject(MatDialogRef)
-    protected readonly dialogRef: NiaxResourceItemPatchDialog<C, I>['ref'],
+    protected readonly dialogRef: NiaxTableFieldUpdateDialog<C, I>['ref'],
     @Inject(MAT_DIALOG_DATA)
-    data: NiaxResourceItemPatchDialog<C, I>['data']
+    data: NiaxTableFieldUpdateDialog<C, I>['data']
   ) {
     super(data);
 
-    this.field = this.data;
+    this.tableField = this.data;
   }
 
   protected override isEqual(
-    fieldA: Niax.TableField<C, I>,
-    fieldB: Niax.TableField<C, I>
+    tableFieldA: Niax.TableField<C, I>,
+    tableFieldB: Niax.TableField<C, I>
   ): boolean {
-    return isEqual(fieldA, fieldB);
+    return isEqual(tableFieldA, tableFieldB);
   }
 }

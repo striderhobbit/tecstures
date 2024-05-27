@@ -8,7 +8,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { UserSession } from 'contecst';
 import { concat, tap } from 'rxjs';
-import { DocumentTableComponent } from '../components/document-table/document-table.component';
 import { DefaultService } from '../core/openapi';
 import { UserService } from '../services/user.service';
 import { tabRoutes } from './app.routes';
@@ -18,7 +17,6 @@ import { tabRoutes } from './app.routes';
   standalone: true,
   imports: [
     CommonModule,
-    DocumentTableComponent,
     MatButtonModule,
     MatExpansionModule,
     MatIconModule,

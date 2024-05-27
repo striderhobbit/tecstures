@@ -1,9 +1,6 @@
 <table
-  *ngIf="
-    resourceTable &&
-    resourceTable.primaryPaths.concat(resourceTable.secondaryPaths) as paths
-  "
-  (cdkDropListDropped)="moveResourceTableColumns(resourceTable, $event)"
+  *ngIf="table && table.primaryPaths.concat(table.secondaryPaths) as paths"
+  (cdkDropListDropped)="moveTableColumns(table, $event)"
   [cdkDropListData]="paths"
   [dataSource]="dataSource"
   cdkDropList
@@ -14,11 +11,11 @@
   <ng-container *ngIf="['select', 'index'].concat(paths) as columns">
     <ng-container matColumnDef="select" sticky>
       <th *matHeaderCellDef mat-header-cell></th>
-      <td *matCellDef="let row" mat-cell>
+      <td *matCellDef="let tableRow" mat-cell>
         <mat-checkbox
-          *ngIf="assertIsResourceTableRow(row) as resourceTableRow"
-          (change)="toggleRowIsSelected(resourceTableRow)"
-          [checked]="selection.isSelected(resourceTableRow)"
+          *ngIf="assertIsTableRow(tableRow) as tableRow"
+          (change)="toggleTableRowIsSelected(tableRow)"
+          [checked]="selectionModel.isSelected(tableRow)"
         >
         </mat-checkbox>
       </td>
@@ -26,7 +23,7 @@
         <button
           (click)="
             scrollToAnchor(
-              assertIsResourceTableRow(selection.selected[0])?.resourceId
+              assertIsTableRow(selectionModel.selected[0])?.resourceId
             )
           "
           mat-icon-button
@@ -46,18 +43,18 @@
 
     <ng-container matColumnDef="index" sticky>
       <th *matHeaderCellDef mat-header-cell></th>
-      <td *matCellDef="let row" mat-cell>
-        <ng-container *ngIf="assertIsResourceTableRow(row) as resourceTableRow">
-          <a [name]="resourceTableRow.resourceId"></a>
-          {{ resourceTableRow.index + 1 }}
+      <td *matCellDef="let tableRow" mat-cell>
+        <ng-container *ngIf="assertIsTableRow(tableRow) as tableRow">
+          <a [name]="tableRow.resourceId"></a>
+          {{ tableRow.index + 1 }}
         </ng-container>
       </td>
       <td *matFooterCellDef mat-footer-cell>
         <mat-form-field>
           <mat-label>Page size</mat-label>
           <mat-select
-            (ngModelChange)="updateResourceTable({ limit: $event })"
-            [ngModel]="resourceTable.query.limit"
+            (ngModelChange)="updateTable(table, { limit: $event })"
+            [ngModel]="table.query.limit"
           >
             <mat-option
               *ngFor="let pageSize of [10, 25, 50]"
@@ -71,34 +68,34 @@
     </ng-container>
 
     <ng-container
-      *ngFor="let column of resourceTable.columns | filter : 'include'"
-      [matColumnDef]="column.path"
+      *ngFor="let tableColumn of table.columns | filter : 'include'"
+      [matColumnDef]="tableColumn.path"
     >
       <th *matHeaderCellDef mat-header-cell>
-        <b>{{ column.path }}</b>
+        <b>{{ tableColumn.path }}</b>
       </th>
-      <td *matCellDef="let row" mat-cell>
-        <ng-container *ngIf="assertIsResourceTableRow(row) as resourceTableRow">
+      <td *matCellDef="let tableRow" mat-cell>
+        <ng-container *ngIf="assertIsTableRow(tableRow) as tableRow">
           <div
-            *ngIf="resourceTableRow.fields[column.path] as field"
-            (click)="openResourceItemPatchDialog(field)"
+            *ngIf="tableRow.fields[tableColumn.path] as tableField"
+            (click)="openTableFieldUpdateDialog(table, tableField)"
             class="table-field"
           >
             <div
-              [attr.data-type]="getType(field.value)"
+              [attr.data-type]="getType(tableField.value)"
               class="table-field__label"
             >
-              {{ field.value }}
+              {{ tableField.value }}
             </div>
           </div>
         </ng-container>
       </td>
-      <td *matFooterCellDef [cdkDragData]="column.path" cdkDrag mat-footer-cell>
+      <td *matFooterCellDef [cdkDragData]="tableColumn.path" cdkDrag mat-footer-cell>
         <mat-form-field>
           <input
-            (change)="updateResourceTableColumns(resourceTable.columns)"
-            (ngModelChange)="columnFilter.invalid || (column.filter = $event)"
-            [ngModel]="column.filter"
+            (change)="updateTableColumns(table)"
+            (ngModelChange)="columnFilter.invalid || (tableColumn.filter = $event)"
+            [ngModel]="tableColumn.filter"
             #columnFilter="ngModel"
             matInput
             pattern="[^,]*"
@@ -106,17 +103,14 @@
             type="text"
             validateRegExp
           />
-          <mat-label>{{ column.path }}</mat-label>
+          <mat-label>{{ tableColumn.path }}</mat-label>
           <button
-            (click)="
-              column.filter = '';
-              updateResourceTableColumns(resourceTable.columns)
-            "
-            [disabled]="!column.filter"
+            (click)="tableColumn.filter = ''; updateTableColumns(table)"
+            [disabled]="!tableColumn.filter"
             mat-icon-button
             matSuffix
           >
-            <mat-icon>filter_alt{{ column.filter && "_off" }}</mat-icon>
+            <mat-icon>filter_alt{{ tableColumn.filter && "_off" }}</mat-icon>
           </button>
           <mat-error *ngIf="columnFilter.errors?.['syntax'] as syntaxError">
             {{ syntaxError }}
@@ -126,66 +120,64 @@
           </mat-error>
         </mat-form-field>
         <button
-          *ngIf="column.sortIndex != null"
+          *ngIf="tableColumn.sortIndex != null"
           (click)="
-            column.order = column.order === 'desc' ? '' : 'desc';
-            updateResourceTableColumns(resourceTable.columns)
+            tableColumn.order = tableColumn.order === 'desc' ? '' : 'desc';
+            updateTableColumns(table)
           "
           mat-icon-button
         >
-          <mat-icon>{{ column.order === "desc" ? "north" : "south" }}</mat-icon>
+          <mat-icon>{{ tableColumn.order === "desc" ? "north" : "south" }}</mat-icon>
         </button>
         <button [matMenuTriggerFor]="menu" mat-icon-button>
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu>
           <button
-            *ngIf="column.sortIndex != null"
+            *ngIf="tableColumn.sortIndex != null"
             (click)="
-              pull(resourceTable.primaryPaths, column.path);
-              syncResourceTableColumns(resourceTable)
+              pull(table.primaryPaths, tableColumn.path); syncTableColumns(table)
             "
             mat-menu-item
           >
             Disable sort
           </button>
           <button
-            *ngIf="column.sortIndex == null"
+            *ngIf="tableColumn.sortIndex == null"
             (click)="
-              resourceTable.primaryPaths.push(column.path);
-              syncResourceTableColumns(resourceTable)
+              table.primaryPaths.push(tableColumn.path); syncTableColumns(table)
             "
             mat-menu-item
           >
             Sort ascending
           </button>
           <button
-            *ngIf="column.sortIndex == null"
+            *ngIf="tableColumn.sortIndex == null"
             (click)="
-              column.order = 'desc';
-              resourceTable.primaryPaths.push(column.path);
-              syncResourceTableColumns(resourceTable)
+              tableColumn.order = 'desc';
+              table.primaryPaths.push(tableColumn.path);
+              syncTableColumns(table)
             "
             mat-menu-item
           >
             Sort descending
           </button>
-          <button (click)="openColumnToggleDialog(resourceTable)" mat-menu-item>
+          <button (click)="openTableColumnToggleDialog(table)" mat-menu-item>
             Toggle...
           </button>
         </mat-menu>
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="rowsPlaceholder">
-      <td *matCellDef="let row" [colSpan]="columns.length" mat-cell>
-        <ng-container *ngIf="assertIsRowsPlaceholder(row) as rowsPlaceholder">
+    <ng-container matColumnDef="tableRowsPlaceholder">
+      <td *matCellDef="let tableRow" [colSpan]="columns.length" mat-cell>
+        <ng-container
+          *ngIf="assertIsTableRowsPlaceholder(tableRow) as tableRowsPlaceholder"
+        >
           <button
-            (click)="
-              fetchResourceTableRows(resourceTable, rowsPlaceholder.pageToken)
-            "
+            (click)="fetchTableRows(table, tableRowsPlaceholder.pageToken)"
             (intersection)="
-              fetchResourceTableRows(resourceTable, rowsPlaceholder.pageToken)
+              fetchTableRows(table, tableRowsPlaceholder.pageToken)
             "
             [disabled]="!intersectionIgnored"
             [intersectionIgnored]="intersectionIgnored"
@@ -198,22 +190,13 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="query">
-      <td *matFooterCellDef [colSpan]="columns.length" mat-footer-cell>
-        <div *ngFor="let signature of resourceTable.signature | keyvalue">
-          {{ signature.key }}: {{ signature.value }}
-        </div>
-      </td>
-    </ng-container>
-
     <tr *matHeaderRowDef="columns" mat-header-row></tr>
 
     <tr
-      *matRowDef="let row; columns: columns"
+      *matRowDef="let tableRow; columns: columns"
       (viewInit)="$event.scrollIntoView({ block: 'start' })"
       [viewInitIgnored]="
-        assertIsResourceTableRow(row)?.resourceId !==
-        resourceTable.query.resourceId
+        assertIsTableRow(tableRow)?.resourceId !== table.query.resourceId
       "
       mat-row
       observeViewInit
@@ -221,9 +204,9 @@
 
     <tr
       *matRowDef="
-        let row;
-        columns: ['rowsPlaceholder'];
-        when: isRowsPlaceholder
+        let tableRow;
+        columns: ['tableRowsPlaceholder'];
+        when: isTableRowsPlaceholder
       "
       mat-row
     ></tr>
@@ -233,6 +216,5 @@
     </tr>
 
     <tr *matFooterRowDef="columns; sticky: true" mat-footer-row></tr>
-    <tr *matFooterRowDef="['query']; sticky: true" mat-footer-row></tr>
   </ng-container>
 </table>
