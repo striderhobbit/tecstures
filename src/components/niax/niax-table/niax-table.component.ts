@@ -23,7 +23,7 @@ import {
 } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { CollectionPath, Niax, PropertyPath } from 'contecst';
-import { cloneDeep, keyBy, pick, pull, zipWith } from 'lodash';
+import { keyBy, pick, pull, zipWith } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
 import { Subject, lastValueFrom, map, mergeMap, switchMap, tap } from 'rxjs';
 import { CustomIconModule } from '../../../classes/custom-icon.module';
@@ -305,9 +305,7 @@ export class NiaxTableComponent<
     }
   }
 
-  async openTableColumnToggleDialog(
-    table: Niax.Table<C, I>
-  ): Promise<Niax.Table<C, I>> {
+  async openTableColumnToggleDialog(table: Niax.Table<C, I>): Promise<void> {
     const dialogRef: NiaxTableColumnToggleDialog<C, I>['ref'] =
       this.dialog.open<
         NiaxTableColumnToggleDialogComponent<C, I>,
@@ -317,9 +315,16 @@ export class NiaxTableComponent<
       });
 
     return lastValueFrom(
-      dialogRef
-        .afterClosed()
-        .pipe(mergeMap(() => this.updateTableColumns(table)))
+      dialogRef.afterClosed().pipe(
+        mergeMap(async (columns) => {
+          if (columns != null) {
+            await this.updateTableColumns({
+              ...table,
+              columns,
+            });
+          }
+        })
+      )
     );
   }
 
@@ -331,7 +336,7 @@ export class NiaxTableComponent<
       NiaxTableFieldUpdateDialogComponent<C, I>,
       NiaxTableFieldUpdateDialog<C, I>['data']
     >(NiaxTableFieldUpdateDialogComponent<C, I>, {
-      data: cloneDeep(tableField),
+      data: tableField,
     });
 
     return lastValueFrom(
