@@ -5,7 +5,7 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
+import { CommonModule, ViewportScroller } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +21,6 @@ import {
   MatTableDataSource,
   MatTableModule,
 } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { CollectionPath, Niax, PropertyPath } from 'contecst';
 import { keyBy, pick, pull, zipWith } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
@@ -126,7 +125,7 @@ export class NiaxTableComponent<
     private readonly defaultService: DefaultService,
     private readonly cookieService: CookieService,
     private readonly dialog: MatDialog,
-    private readonly router: Router
+    private readonly viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
@@ -350,11 +349,10 @@ export class NiaxTableComponent<
     );
   }
 
-  async scrollToAnchor(fragment?: string): Promise<void> {
-    await this.router.navigate([], {
-      fragment,
-      queryParamsHandling: 'preserve',
-    });
+  scrollToAnchor(fragment?: string): void {
+    if (fragment != null) {
+      this.viewportScroller.scrollToAnchor(fragment);
+    }
   }
 
   async syncTableColumns(table: Niax.Table<C, I>): Promise<Niax.Table<C, I>> {
