@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
-import { DocumentTableComponent } from '../document-table/document-table.component';
+import { Niax } from 'contecst';
+import { NiaxTableComponent } from '../niax/niax-table/niax-table.component';
 
 @Component({
   selector: 'users',
   standalone: true,
-  imports: [DocumentTableComponent],
+  imports: [NiaxTableComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss',
 })
-export class UsersComponent {}
+export class UsersComponent {
+  protected readonly tableQuery: Niax.TableQuery<'users'> = {
+    cols: 'data.name:::',
+    resourceName: 'users',
+  };
+}

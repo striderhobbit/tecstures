@@ -1,0 +1,43 @@
+<h1 mat-dialog-title>Update item {{ tableField.resourceId }}</h1>
+<div mat-dialog-content>
+  <ng-container [ngSwitch]="tableField.type">
+    <mat-form-field *ngSwitchDefault [ngSwitch]="tableField.type">
+      <textarea
+        *ngSwitchDefault
+        [(ngModel)]="tableField.value"
+        matInput
+        rows="5"
+      ></textarea>
+      <input
+        *ngSwitchCase="'number'"
+        [(ngModel)]="tableField.value"
+        matInput
+        type="number"
+      />
+      <mat-label>{{ tableField.path }}</mat-label>
+    </mat-form-field>
+    <mat-checkbox *ngSwitchCase="'boolean'" [(ngModel)]="tableField.value">
+      {{ tableField.path }}
+    </mat-checkbox>
+  </ng-container>
+</div>
+<div mat-dialog-actions>
+  <button (click)="dialogRef.close()" mat-button>
+    {{ hasChanges() ? "Discard" : "Cancel" }}
+  </button>
+  <button
+    (click)="dialogRef.close(set(tableField, 'value', null))"
+    [disabled]="!tableField.nullable || dataBackup.value == null"
+    color="warn"
+    mat-button
+  >
+    Delete
+  </button>
+  <button
+    (click)="dialogRef.close(tableField)"
+    [disabled]="!hasChanges()"
+    mat-button
+  >
+    Save
+  </button>
+</div>

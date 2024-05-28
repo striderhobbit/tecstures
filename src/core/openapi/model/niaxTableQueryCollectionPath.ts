@@ -9,10 +9,17 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import { CollectionPath } from './collectionPath';
 
 
-export interface UserCredentials { 
-    id: string;
-    password: string;
+export interface NiaxTableQueryCollectionPath { 
+    limit?: number;
+    cols?: string;
+    resourceId?: string;
+    resourceName: CollectionPath;
+    rowsPageToken?: string;
 }
+export namespace NiaxTableQueryCollectionPath {
+}
+
 
