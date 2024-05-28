@@ -68,7 +68,10 @@
     </ng-container>
 
     <ng-container
-      *ngFor="let tableColumn of table.columns | filter : 'include'"
+      *ngFor="
+        let tableColumn of table.columns | filter : 'include';
+        trackBy: trackByIndex
+      "
       [matColumnDef]="tableColumn.path"
     >
       <th *matHeaderCellDef mat-header-cell>
@@ -90,11 +93,18 @@
           </div>
         </ng-container>
       </td>
-      <td *matFooterCellDef [cdkDragData]="tableColumn.path" cdkDrag mat-footer-cell>
+      <td
+        *matFooterCellDef
+        [cdkDragData]="tableColumn.path"
+        cdkDrag
+        mat-footer-cell
+      >
         <mat-form-field>
           <input
             (change)="updateTableColumns(table)"
-            (ngModelChange)="columnFilter.invalid || (tableColumn.filter = $event)"
+            (ngModelChange)="
+              columnFilter.invalid || (tableColumn.filter = $event)
+            "
             [ngModel]="tableColumn.filter"
             #columnFilter="ngModel"
             matInput
@@ -127,7 +137,9 @@
           "
           mat-icon-button
         >
-          <mat-icon>{{ tableColumn.order === "desc" ? "north" : "south" }}</mat-icon>
+          <mat-icon>{{
+            tableColumn.order === "desc" ? "north" : "south"
+          }}</mat-icon>
         </button>
         <button [matMenuTriggerFor]="menu" mat-icon-button>
           <mat-icon>more_vert</mat-icon>
@@ -136,7 +148,8 @@
           <button
             *ngIf="tableColumn.sortIndex != null"
             (click)="
-              pull(table.primaryPaths, tableColumn.path); syncTableColumns(table)
+              pull(table.primaryPaths, tableColumn.path);
+              syncTableColumns(table)
             "
             mat-menu-item
           >

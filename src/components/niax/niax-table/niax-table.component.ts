@@ -429,4 +429,8 @@ export class NiaxTableComponent<
         )
     );
   }
+
+  trackByIndex(index: number): number {
+    return index;
+  }
 }
