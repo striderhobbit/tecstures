@@ -10,8 +10,8 @@ import { NiaxTableComponent } from '../niax/niax-table/niax-table.component';
   styleUrl: './users.component.scss',
 })
 export class UsersComponent {
-  protected readonly tableQuery: Niax.TableQuery<'events'> = {
-    cols: 'data.name:::,data.participants:::',
-    resourceName: 'events',
+  protected readonly tableQuery: Niax.TableQuery<'users'> = {
+    cols: 'data.name:::',
+    resourceName: 'users',
   };
 }
