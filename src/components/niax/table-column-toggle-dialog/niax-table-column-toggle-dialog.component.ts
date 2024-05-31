@@ -36,10 +36,10 @@ export class NiaxTableColumnToggleDialogComponent<
   protected readonly tableColumns: Niax.TableColumn<C, I>[];
 
   constructor(
-    @Inject(MatDialogRef)
-    protected readonly dialogRef: NiaxTableColumnToggleDialog<C, I>['ref'],
     @Inject(MAT_DIALOG_DATA)
-    data: NiaxTableColumnToggleDialog<C, I>['data']
+    data: NiaxTableColumnToggleDialog<C, I>['data'],
+    @Inject(MatDialogRef)
+    protected readonly dialogRef: NiaxTableColumnToggleDialog<C, I>['ref']
   ) {
     super(data);
 

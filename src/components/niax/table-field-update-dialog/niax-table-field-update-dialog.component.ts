@@ -51,10 +51,10 @@ export class NiaxTableFieldUpdateDialogComponent<
   protected readonly tableField: Niax.TableField<C, I>;
 
   constructor(
-    @Inject(MatDialogRef)
-    protected readonly dialogRef: NiaxTableFieldUpdateDialog<C, I>['ref'],
     @Inject(MAT_DIALOG_DATA)
-    data: NiaxTableFieldUpdateDialog<C, I>['data']
+    data: NiaxTableFieldUpdateDialog<C, I>['data'],
+    @Inject(MatDialogRef)
+    protected readonly dialogRef: NiaxTableFieldUpdateDialog<C, I>['ref']
   ) {
     super(data);
 

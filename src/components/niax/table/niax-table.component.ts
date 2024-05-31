@@ -1,9 +1,9 @@
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-  CdkDragDrop,
-  DragDropModule,
-  moveItemInArray,
-  transferArrayItem,
+    CdkDragDrop,
+    DragDropModule,
+    moveItemInArray,
+    transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { CommonModule, ViewportScroller } from '@angular/common';
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
@@ -17,9 +17,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import {
-  MatTable,
-  MatTableDataSource,
-  MatTableModule,
+    MatTable,
+    MatTableDataSource,
+    MatTableModule,
 } from '@angular/material/table';
 import { CollectionPath, Niax, PropertyPath } from 'contecst';
 import { keyBy, pick, pull, zipWith } from 'lodash';
@@ -32,12 +32,12 @@ import { RegExpValidatorDirective } from '../../../classes/reg-exp-validator.dir
 import { ViewInitObserverDirective } from '../../../classes/view-init-observer.directive';
 import { DefaultService } from '../../../core/openapi';
 import {
-  NiaxTableColumnToggleDialog,
-  NiaxTableColumnToggleDialogComponent,
+    NiaxTableColumnToggleDialog,
+    NiaxTableColumnToggleDialogComponent,
 } from '../table-column-toggle-dialog/niax-table-column-toggle-dialog.component';
 import {
-  NiaxTableFieldUpdateDialog,
-  NiaxTableFieldUpdateDialogComponent,
+    NiaxTableFieldUpdateDialog,
+    NiaxTableFieldUpdateDialogComponent,
 } from '../table-field-update-dialog/niax-table-field-update-dialog.component';
 
 class TableRowsPlaceholder {
@@ -122,10 +122,10 @@ export class NiaxTableComponent<
   tableRowsPagesUpdate$ = new Subject<Niax.TableRowsPage<C, I>>();
 
   constructor(
-    private readonly defaultService: DefaultService,
     private readonly cookieService: CookieService,
+    private readonly defaultService: DefaultService,
     private readonly dialog: MatDialog,
-    private readonly viewportScroller: ViewportScroller
+    private readonly viewportScroller: ViewportScroller,
   ) {}
 
   ngOnInit(): void {
