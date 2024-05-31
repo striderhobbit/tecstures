@@ -26,6 +26,7 @@
               assertIsTableRow(selectionModel.selected[0])?.resourceId
             )
           "
+          [disabled]="!selectionModel.hasValue()"
           mat-icon-button
         >
           <mat-icon>vertical_align_top</mat-icon>
