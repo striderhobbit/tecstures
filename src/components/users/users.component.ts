@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Niax } from 'contecst';
-import { NiaxTableComponent } from '../niax/niax-table/niax-table.component';
+import { NiaxTableComponent } from '../niax/table/niax-table.component';
 
 @Component({
   selector: 'users',

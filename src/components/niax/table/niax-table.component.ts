@@ -34,11 +34,11 @@ import { DefaultService } from '../../../core/openapi';
 import {
   NiaxTableColumnToggleDialog,
   NiaxTableColumnToggleDialogComponent,
-} from '../niax-table-column-toggle-dialog/niax-table-column-toggle-dialog.component';
+} from '../table-column-toggle-dialog/niax-table-column-toggle-dialog.component';
 import {
   NiaxTableFieldUpdateDialog,
   NiaxTableFieldUpdateDialogComponent,
-} from '../niax-table-field-update-dialog/niax-table-field-update-dialog.component';
+} from '../table-field-update-dialog/niax-table-field-update-dialog.component';
 
 class TableRowsPlaceholder {
   constructor(public pageToken: string) {}

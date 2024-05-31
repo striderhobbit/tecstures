@@ -8,9 +8,9 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { UserSession } from 'contecst';
 import { concat, tap } from 'rxjs';
-import { DefaultService } from '../core/openapi';
-import { UserService } from '../services/user.service';
-import { tabRoutes } from './app.routes';
+import { tabRoutes } from '../../app.routes';
+import { DefaultService } from '../../core/openapi';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'root',
@@ -34,8 +34,8 @@ export class AppComponent {
   protected userSession?: UserSession | null;
 
   constructor(
-    private readonly userService: UserService,
-    private readonly defaultService: DefaultService
+    private readonly defaultService: DefaultService,
+    private readonly userService: UserService
   ) {
     this.userService.userSession$.subscribe({
       next: (userSession) => (this.userSession = userSession),

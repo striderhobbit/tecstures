@@ -3,7 +3,7 @@ import {
   DetachedRouteHandle,
   RouteReuseStrategy,
 } from '@angular/router';
-import { tabRoutes } from '../app/app.routes';
+import { tabRoutes } from '../app.routes';
 
 export class CustomRouteReuseStrategy implements RouteReuseStrategy {
   private readonly detachedRouteHandles = new Map<

@@ -11,10 +11,10 @@ import {
   provideRouter,
   withHashLocation,
 } from '@angular/router';
-import { provideApi, withApiConfiguration } from '../api.provider';
-import { AuthInterceptor } from '../classes/auth-interceptor';
-import { CustomRouteReuseStrategy } from '../classes/custom-route-reuse-strategy';
+import { provideApi, withApiConfiguration } from './api.provider';
 import { routes } from './app.routes';
+import { AuthInterceptor } from './classes/auth-interceptor';
+import { CustomRouteReuseStrategy } from './classes/custom-route-reuse-strategy';
 
 export const appConfig: ApplicationConfig = {
   providers: [
