@@ -13,13 +13,11 @@ import { ChangeDetector } from '../../../classes/change-detector';
 
 export interface NiaxTableColumnToggleDialog<
   C extends CollectionPath,
-  I extends Niax.Item<C>
+  I extends Niax.Item<C>,
+  R extends any = Niax.TableColumn<C, I>[]
 > {
-  ref: MatDialogRef<
-    NiaxTableColumnToggleDialogComponent<C, I>,
-    Niax.TableColumn<C, I>[]
-  >;
-  data: Niax.TableColumn<C, I>[];
+  ref: MatDialogRef<NiaxTableColumnToggleDialogComponent<C, I>, R>;
+  data: R;
 }
 
 @Component({

@@ -16,12 +16,10 @@ import { ChangeDetector } from '../../../classes/change-detector';
 
 export interface NiaxTableFieldUpdateDialog<
   C extends CollectionPath,
-  I extends Niax.Item<C>
+  I extends Niax.Item<C>,
+  R extends any = Niax.TableField<C, I>
 > {
-  ref: MatDialogRef<
-    NiaxTableFieldUpdateDialogComponent<C, I>,
-    Niax.TableField<C, I>
-  >;
+  ref: MatDialogRef<NiaxTableFieldUpdateDialogComponent<C, I>, R>;
   data: Niax.TableField<C, I>;
 }
 
