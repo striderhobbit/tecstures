@@ -24,13 +24,22 @@ import {
 import { CollectionPath, Niax, PropertyPath } from 'contecst';
 import { keyBy, pick, pull, zipWith } from 'lodash';
 import { CookieService } from 'ngx-cookie-service';
-import { Subject, lastValueFrom, map, mergeMap, switchMap, tap } from 'rxjs';
+import {
+  Subject,
+  defer,
+  lastValueFrom,
+  map,
+  mergeMap,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { CustomIconModule } from '../../../classes/custom-icon.module';
 import { FilterPipe } from '../../../classes/filter.pipe';
 import { IntersectionObserverDirective } from '../../../classes/intersection-observer.directive';
 import { RegExpValidatorDirective } from '../../../classes/reg-exp-validator.directive';
 import { ViewInitObserverDirective } from '../../../classes/view-init-observer.directive';
 import { DefaultService } from '../../../core/openapi';
+import { OverlayService } from '../../../services/overlay.service';
 import {
   NiaxTableColumnToggleDialog,
   NiaxTableColumnToggleDialogComponent,
@@ -125,6 +134,7 @@ export class NiaxTableComponent<
     private readonly cookieService: CookieService,
     private readonly defaultService: DefaultService,
     private readonly matDialog: MatDialog,
+    private readonly overlayService: OverlayService,
     private readonly viewportScroller: ViewportScroller
   ) {}
 
@@ -341,11 +351,15 @@ export class NiaxTableComponent<
 
     return lastValueFrom(
       dialogRef.afterClosed().pipe(
-        mergeMap(async (tableField) => {
-          if (tableField != null) {
-            await this.updateTableField(table, tableField);
-          }
-        })
+        mergeMap((tableField) =>
+          this.overlayService.open(
+            defer(async () => {
+              if (tableField != null) {
+                await this.updateTableField(table, tableField);
+              }
+            })
+          )
+        )
       )
     );
   }
