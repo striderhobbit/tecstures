@@ -4,7 +4,10 @@ import {
   HttpInterceptor,
   HttpRequest,
 } from '@angular/common/http';
+import { configDotenv } from 'dotenv';
 import { Observable } from 'rxjs';
+
+configDotenv();
 
 export class AuthInterceptor implements HttpInterceptor {
   intercept(
@@ -16,7 +19,9 @@ export class AuthInterceptor implements HttpInterceptor {
     if (token) {
       return next.handle(
         req.clone({
-          setHeaders: { Authorization: `Bearer ${token}` },
+          setHeaders: {
+            Authorization: `Bearer ${process.env['API_KEY']},${token}`,
+          },
         })
       );
     }
