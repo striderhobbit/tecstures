@@ -20,8 +20,6 @@ jobs:
 
       - name: Build 🏗️
         run: npm run build:prod
-        env:
-          API_KEY: ${{secrets.API_KEY}}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@releases/v4
