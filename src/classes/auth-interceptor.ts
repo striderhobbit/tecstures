@@ -1,13 +1,10 @@
 import {
-  HttpEvent,
-  HttpHandler,
-  HttpInterceptor,
-  HttpRequest,
+    HttpEvent,
+    HttpHandler,
+    HttpInterceptor,
+    HttpRequest,
 } from '@angular/common/http';
-import { configDotenv } from 'dotenv';
 import { Observable } from 'rxjs';
-
-configDotenv();
 
 export class AuthInterceptor implements HttpInterceptor {
   intercept(
