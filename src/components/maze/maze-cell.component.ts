@@ -5,10 +5,12 @@ import { Move, TransformDirection } from './maze.component';
 export class Cell {
   readonly i: number;
   readonly j: number;
+  readonly tile?: string;
 
-  constructor({ i, j }: { i: number; j: number }) {
+  constructor({ i, j, tile }: { i: number; j: number; tile?: string }) {
     this.i = i;
     this.j = j;
+    this.tile = tile;
   }
 }
 
@@ -39,5 +41,10 @@ export class MazeCellComponent {
     }
 
     return;
+  }
+
+  @HostBinding('style.backgroundImage')
+  get backgroundImage(): string | undefined {
+    return this.cell.tile && `url("${this.cell.tile}")`;
   }
 }

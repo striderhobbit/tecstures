@@ -13,7 +13,7 @@ import { DefaultService } from '../../core/openapi';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'root',
+  selector: 'app',
   standalone: true,
   imports: [
     CommonModule,

@@ -1,4 +1,6 @@
 :host {
-    display: grid;
+    aspect-ratio: 1;
+    display: inline-grid;
     grid-template-columns: repeat(var(--size), 1fr);
+    height: 100%;
 }

@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { uniqueId } from 'lodash';
+import { range, shuffle, uniqueId } from 'lodash';
 import { AnimationScheduler } from '../../classes/animation-scheduler';
 import { Cell, MazeCellComponent } from './maze-cell.component';
 
@@ -45,13 +45,26 @@ export class MazeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const tiles = shuffle(range(50));
+
     for (
       let i = 0, row: Cell[] = [];
       i < this.size;
       i++, this.cells.push(row.splice(0))
     ) {
       for (let j = 0; j < this.size; j++) {
-        row.push(new Cell({ i, j }));
+        const isInnerCell =
+          0 < Math.min(i, j) && Math.max(i, j) < this.size - 1;
+
+        row.push(
+          new Cell({
+            i,
+            j,
+            tile: isInnerCell
+              ? `assets/images/tiles/tile (${tiles.splice(0, 1)[0]}).png`
+              : void 0,
+          })
+        );
       }
     }
   }
